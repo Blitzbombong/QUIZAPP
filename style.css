@@ -15,8 +15,28 @@ img {
 
 .main-card {
     background-color: blue;
-    height: 100vh;
+    height: 100%;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
+
+.quiz-card {
+    width: 25rem;
+}
+
+.card-img-top {
+    width: 100%;
+    margin: 0;
+}
+
+.question-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(0, 0, 0, 0.4);
+    align-items: center;
+    padding-top: 8px;
+}
+
