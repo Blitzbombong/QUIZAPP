@@ -32,6 +32,11 @@ img {
     margin: 0;
 }
 
+.quiy-answer-card:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
 .question-footer {
     display: flex;
     justify-content: space-between;
