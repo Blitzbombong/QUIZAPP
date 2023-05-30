@@ -45,3 +45,7 @@ img {
     padding-top: 8px;
 }
 
+.bg-success, .bg-danger {
+    color: white;
+}
+
