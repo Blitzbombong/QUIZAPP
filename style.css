@@ -49,3 +49,21 @@ img {
     color: white;
 }
 
+.text-center {
+    text-align: center;
+}
+
+.width-100 {
+    width: 100%;
+}
+
+.final-text {
+    font-size: 38px;
+    margin-bottom: 5px;
+}
+
+.restart-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}

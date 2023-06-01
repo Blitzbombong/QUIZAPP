@@ -81,13 +81,13 @@ let questions = [
     }
 ];
 
+let correctQuestions = 0;
 let currentQuestinon = 0;
 
 
 function init(){
     document.getElementById('all-questions').innerHTML = questions.length;
     
-
     showQuestion()
 }
 
@@ -95,10 +95,19 @@ function init(){
 function showQuestion(){
 
     if(currentQuestinon >= questions.length){
-        // TODO Show End Screen
+        // Show End Screen
         document.getElementById('end-screen').style = '';
         document.getElementById('question-card').style = 'display: none';
-    } else{
+        document.getElementById('finished-questions').innerHTML = questions.length;
+        document.getElementById('correct-questions').innerHTML = correctQuestions;
+        document.getElementById('header-image').src = 'img/pokal.jpg';
+    } else{ // Show question
+
+    let percent = (currentQuestinon + 1) / questions.length;
+        percent = Math.round(percent * 100);
+        document.getElementById('progress-bar').innerHTML = `${percent} %`;
+        document.getElementById('progress-bar').style = `width: ${percent}%;`;
+        console.log('fortschrit:', percent);
     let question = questions[currentQuestinon];
 
     document.getElementById('next-level').innerHTML = currentQuestinon + 1;
@@ -118,6 +127,7 @@ function answer(selection) {
     if(selectedQuestionNumber == question['right_answer']) {
         console.log('Richtige Antwort!!!');
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        correctQuestions++;
     } else {
         console.log('Falsche Antwort!!!');
         document.getElementById(selection).parentNode.classList.add('bg-danger');
@@ -144,4 +154,15 @@ function resetAnswerButtons() {
     document.getElementById('answer_3').parentNode.classList.remove('bg-success');
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
     document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+}
+
+
+function restartGame() {
+    document.getElementById('header-image').src = 'img/quiz.jpg';
+    document.getElementById('question-card').style = '';  // questionBody wieder einzeigen
+    document.getElementById('end-screen').style = 'display: none';  // Endscrinn ausblenden
+
+    correctQuestions = 0;
+    currentQuestinon = 0;
+    init();
 }

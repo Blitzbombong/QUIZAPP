@@ -27,12 +27,23 @@
     <!--- ontainer Card --->
     <div class="main-card">
         <div class="card quiz-card">
-            <img src="img/quiz.jpg" class="card-img-top" alt="...">
-
-            <div class="card-body" id="end-screen" style="display: none;">
-                Quiz beendet!
+            <img src="img/quiz.jpg" id="header-image" class="card-img-top" alt="...">
+            <div class="progress">
+                <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0px;">0%</div>
             </div>
+            <div class="card-body" id="end-screen" style="display: none;">
+                <div class="text-center final-text"> 
+                    Quiz beendet!
+                </div>
+                <div class="text-center">
+                    Du hast <b id="correct-questions">xxx</b> Fragen von <b id="finished-questions">xxx</b> richtig beantwortet.
+                </div>
 
+                <div class="restart-button">
+                    <button onclick="restartGame()" class="btn btn-primary">Erneut spielen!</button>
+                </div>
+
+            </div>
                 <div class="card-body" id="question-card">
                     <h5 class="card-title" id="questiontext">Frage</h5>
                     
