@@ -83,6 +83,8 @@ let questions = [
 
 let correctQuestions = 0;
 let currentQuestinon = 0;
+let audio_success = new Audio('sound/win.mp3');
+let audio_falt = new Audio('sound/wrong.mp3');
 
 
 function init(){
@@ -94,46 +96,71 @@ function init(){
 
 function showQuestion(){
 
-    if(currentQuestinon >= questions.length){
-        // Show End Screen
-        document.getElementById('end-screen').style = '';
-        document.getElementById('question-card').style = 'display: none';
-        document.getElementById('finished-questions').innerHTML = questions.length;
-        document.getElementById('correct-questions').innerHTML = correctQuestions;
-        document.getElementById('header-image').src = 'img/pokal.jpg';
-    } else{ // Show question
-
-    let percent = (currentQuestinon + 1) / questions.length;
-        percent = Math.round(percent * 100);
-        document.getElementById('progress-bar').innerHTML = `${percent} %`;
-        document.getElementById('progress-bar').style = `width: ${percent}%;`;
-        console.log('fortschrit:', percent);
-    let question = questions[currentQuestinon];
-
-    document.getElementById('next-level').innerHTML = currentQuestinon + 1;
-    document.getElementById('questiontext').innerHTML = question['question'];
-    document.getElementById('answer_1').innerHTML = question['answer_1'];
-    document.getElementById('answer_2').innerHTML = question['answer_2'];
-    document.getElementById('answer_3').innerHTML = question['answer_3'];
-    document.getElementById('answer_4').innerHTML = question['answer_4'];
+    if(gameIsOver()){
+        showEndScreen();
+    } else{
+        updateToNextQuestion();
+        updateProgressBar();
     }
 }
+
+
+function gameIsOver() {
+    return currentQuestinon >= questions.length
+}
+
+
+function showEndScreen() {
+    document.getElementById('end-screen').style = '';
+    document.getElementById('question-card').style = 'display: none';
+    document.getElementById('finished-questions').innerHTML = questions.length;
+    document.getElementById('correct-questions').innerHTML = correctQuestions;
+    document.getElementById('header-image').src = 'img/pokal.jpg';
+}
+
+
+function updateToNextQuestion() {
+let question = questions[currentQuestinon];
+
+document.getElementById('next-level').innerHTML = currentQuestinon + 1;
+document.getElementById('questiontext').innerHTML = question['question'];
+document.getElementById('answer_1').innerHTML = question['answer_1'];
+document.getElementById('answer_2').innerHTML = question['answer_2'];
+document.getElementById('answer_3').innerHTML = question['answer_3'];
+document.getElementById('answer_4').innerHTML = question['answer_4'];
+}
+
+
+function updateProgressBar(){
+    let percent = (currentQuestinon + 1) / questions.length;
+    percent = Math.round(percent * 100);
+    document.getElementById('progress-bar').innerHTML = `${percent} %`;
+    document.getElementById('progress-bar').style = `width: ${percent}%;`;
+}
+
 
 function answer(selection) {
     let question = questions[currentQuestinon]; /* hier befindet sich die aktuele Frage */
     let selectedQuestionNumber = selection.slice(-1);
     let idOfRightAnswer = `answer_${question['right_answer']}`;
 
-    if(selectedQuestionNumber == question['right_answer']) {
+    if(rigthAnswearSelected(selectedQuestionNumber)) {
         console.log('Richtige Antwort!!!');
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        audio_success.play();
         correctQuestions++;
     } else {
         console.log('Falsche Antwort!!!');
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        audio_falt.play();
     }
     document.getElementById('next-button').disabled = false;
+}
+
+
+function rigthAnswearSelected(selectedQuestionNumber) {
+    return selectedQuestionNumber == questions['right_answer'];
 }
 
 
@@ -166,3 +193,4 @@ function restartGame() {
     currentQuestinon = 0;
     init();
 }
+
